@@ -32,6 +32,11 @@ build_script:
   - ninja -C out/Default electron:electron_chromedriver_zip
   - appveyor PushArtifact out/Default/dist.zip
   - appveyor PushArtifact out/Default/chromedriver.zip
+  - ps: >-
+      if ($env:GN_CONFIG -eq 'release') {
+        python electron\script\dump-symbols.py -d %cd%/out/Release/electron.breakpad.syms
+        appveyor PushArtifact out/Release/electron.breakpad.syms
+      }
 test_script:
   - if "%GN_CONFIG%"=="testing" ( echo Verifying non proprietary ffmpeg & python electron\script\verify-ffmpeg.py --build-dir out\Default --source-root %cd% --ffmpeg-path out\ffmpeg )
   - ps: >-
