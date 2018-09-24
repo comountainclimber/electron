@@ -215,9 +215,9 @@ step-show-sccache-stats: &step-show-sccache-stats
     name: Check sccache stats after build
     command: $SCCACHE_PATH -s
 
-step-maybe-generate-breakpad_symbols: &step-generate-breakpad_symbols
+step-maybe-generate-breakpad_symbols: &step-maybe-generate-breakpad_symbols
   run:
-    name: Generate breakpad symbols:
+    name: Generate breakpad symbols
     command: |
       if [ "$ELECTRON_RELEASE" == "1" ]; then
         cd src
